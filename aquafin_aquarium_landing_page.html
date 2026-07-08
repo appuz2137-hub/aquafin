@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquafin | Futuristic Underwater Sanctuary</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        deep: {
+                            950: '#020617',
+                            900: '#070f2b',
+                            800: '#1b1a55',
+                            700: '#535c91',
+                        },
+                        neon: {
+                            cyan: '#00f3ff',
+                            blue: '#0077ff',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Neon Blue Glow and Blur Effects */
+        .neon-text-glow {
+            text-shadow: 
+                0 0 7px rgba(0, 243, 255, 0.8),
+                0 0 20px rgba(0, 243, 255, 0.4),
+                0 0 40px rgba(0, 119, 255, 0.3);
+        }
+        .neon-border-glow {
+            box-shadow: 
+                0 0 10px rgba(0, 243, 255, 0.3),
+                inset 0 0 10px rgba(0, 243, 255, 0.1);
+        }
+        .neon-border-glow:hover {
+            box-shadow: 
+                0 0 20px rgba(0, 243, 255, 0.6),
+                inset 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #070f2b;
+            border: 2px solid #00f3ff;
+            border-radius: 4px;
+        }
+        /* Smooth transitions */
+        .smooth-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Glassmorphism base panels */
+        .glass-panel {
+            background: rgba(7, 15, 43, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-deep-950 text-slate-100 font-sans overflow-x-hidden relative selection:bg-neon-cyan selection:text-deep-950">
+
+    <!-- Ambient Canvas Backdrop (Interactive Bubble Particles & Shadows) -->
+    <canvas id="ambientCanvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40"></canvas>
+
+    <!-- Header / Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-white/5 py-4 px-6 md:px-12 flex justify-between items-center">
+        <a href="#" class="flex items-center space-x-2">
+            <svg class="w-8 h-8 text-neon-cyan animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            <span class="font-space font-bold text-2xl tracking-wider text-neon-cyan neon-text-glow">AQUAFIN</span>
+        </a>
+        <div class="hidden md:flex space-x-8 font-space text-sm tracking-wide">
+            <a href="#varieties" class="hover:text-neon-cyan smooth-transition text-slate-300">Varieties</a>
+            <a href="#simulation" class="hover:text-neon-cyan smooth-transition text-slate-300">Virtual Tank</a>
+            <a href="#gallery" class="hover:text-neon-cyan smooth-transition text-slate-300">Gallery</a>
+            <a href="#tickets" class="hover:text-neon-cyan smooth-transition text-slate-300">Book Tickets</a>
+        </div>
+        <a href="#tickets" class="hidden sm:inline-block bg-transparent border border-neon-cyan text-neon-cyan px-5 py-2 rounded-full font-space text-sm font-semibold hover:bg-neon-cyan hover:text-deep-950 smooth-transition neon-border-glow">
+            Plan Visit
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col justify-center items-center text-center px-4 pt-24 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-deep-950/90 pointer-events-none"></div>
+        <div class="z-10 max-w-4xl px-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-deep-900/60 border border-neon-blue/30 text-neon-cyan text-xs font-semibold mb-6 uppercase tracking-widest font-space">
+                <span class="w-2 h-2 rounded-full bg-neon-cyan animate-ping"></span>
+                Now Open: Bioluminescent Night Walk
+            </div>
+            <h1 class="font-space font-bold text-5xl sm:text-7xl md:text-8xl text-neon-cyan neon-text-glow tracking-tight uppercase leading-none mb-6">
+                AQUAFIN
+            </h1>
+            <p class="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                Step into a mesmerizing oceanic deep-dive. Discover thousands of rare species, interact with virtual living reefs, and lose yourself in neon-lit marine habitats.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#tickets" class="w-full sm:w-auto bg-neon-cyan text-deep-950 px-8 py-4 rounded-xl font-space font-bold hover:shadow-[0_0_25px_rgba(0,243,255,0.8)] smooth-transition transform hover:-translate-y-0.5">
+                    Buy Passes Online
+                </a>
+                <a href="#simulation" class="w-full sm:w-auto bg-white/5 border border-white/10 hover:border-neon-cyan text-white px-8 py-4 rounded-xl font-space font-bold smooth-transition">
+                    Interactive Tank
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Down indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-2">
+            <span class="text-xs font-space tracking-widest uppercase text-slate-400 opacity-60">Explore Below</span>
+            <div class="w-6 h-10 border-2 border-slate-500 rounded-full flex justify-center p-1">
+                <div class="w-1.5 h-3 bg-neon-cyan rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-16 space-y-32">
+
+        <!-- Section 1: Varieties of Fish -->
+        <section id="varieties" class="scroll-mt-28">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-space text-4xl md:text-5xl font-bold text-white mb-4">
+                    Spectacular <span class="text-neon-cyan neon-text-glow">Marine Varieties</span>
+                </h2>
+                <p class="text-slate-400">Discover handpicked, exquisite species that paint our tanks with vibrant motion and mystical glows. Click on any card to study their behaviors.</p>
+            </div>
+
+            <!-- Variety Category Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="fish-interactive-card glass-panel rounded-2xl p-6 cursor-pointer hover:border-neon-cyan/50 smooth-transition group" onclick="toggleDetails('reef-detail')">
+                    <div class="h-40 rounded-xl overflow-hidden mb-4 relative bg-deep-950 border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&q=80" alt="Coral Reef Fish" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                        <div class="absolute top-2 right-2 bg-neon-cyan/20 text-neon-cyan border border-neon-cyan/30 text-[10px] px-2 py-0.5 rounded font-space uppercase">Warm Water</div>
+                    </div>
+                    <h3 class="font-space text-xl font-bold text-neon-cyan mb-2">Tropical Reef Giants</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-4">Vibrant coral-dwelling masterpieces including rare Tangs, Angelfish, and Butterflyfish.</p>
+                    <div class="flex items-center justify-between text-xs text-slate-400 border-t border-white/5 pt-3">
+                        <span>Depth: 2 - 30m</span>
+                        <span class="text-neon-cyan hover:underline">Read Spec Sheet &rarr;</span>
+                    </div>
+                    <!-- Hidden Detail Container -->
+                    <div id="reef-detail" class="hidden mt-4 pt-4 border-t border-white/10 text-xs text-slate-400 space-y-1">
+                        <p><strong>Common Specimen:</strong> Blue Tang, Regal Angelfish</p>
+                        <p><strong>Dietary Habits:</strong> Algae and micro-crustaceans</p>
+                        <p><strong>Conservation State:</strong> Protected Status</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="fish-interactive-card glass-panel rounded-2xl p-6 cursor-pointer hover:border-neon-cyan/50 smooth-transition group" onclick="toggleDetails('abyssal-detail')">
+                    <div class="h-40 rounded-xl overflow-hidden mb-4 relative bg-deep-950 border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1550029330-8dbccaada873?auto=format&fit=crop&w=400&q=80" alt="Luminescent Jellies" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                        <div class="absolute top-2 right-2 bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] px-2 py-0.5 rounded font-space uppercase">Deep Abyssal</div>
+                    </div>
+                    <h3 class="font-space text-xl font-bold text-neon-cyan mb-2">Neon Luminescent</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-4">Remarkable bioluminescent organisms like Moon Jellies that glow inside dark waters.</p>
+                    <div class="flex items-center justify-between text-xs text-slate-400 border-t border-white/5 pt-3">
+                        <span>Depth: 100 - 800m</span>
+                        <span class="text-neon-cyan hover:underline">Read Spec Sheet &rarr;</span>
+                    </div>
+                    <!-- Hidden Detail Container -->
+                    <div id="abyssal-detail" class="hidden mt-4 pt-4 border-t border-white/10 text-xs text-slate-400 space-y-1">
+                        <p><strong>Common Specimen:</strong> Aurelia Aurita, Comb Jelly</p>
+                        <p><strong>Dietary Habits:</strong> Planktonic larvae</p>
+                        <p><strong>Luminescence Source:</strong> Photoproteins</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="fish-interactive-card glass-panel rounded-2xl p-6 cursor-pointer hover:border-neon-cyan/50 smooth-transition group" onclick="toggleDetails('apex-detail')">
+                    <div class="h-40 rounded-xl overflow-hidden mb-4 relative bg-deep-950 border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1560275619-4662e36fa65c?auto=format&fit=crop&w=400&q=80" alt="Apex Shark" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                        <div class="absolute top-2 right-2 bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] px-2 py-0.5 rounded font-space uppercase">Ocean Apex</div>
+                    </div>
+                    <h3 class="font-space text-xl font-bold text-neon-cyan mb-2">Apex Deep Predators</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-4">Commanding presence predators, including Blacktip Reef Sharks and Spotted Rays.</p>
+                    <div class="flex items-center justify-between text-xs text-slate-400 border-t border-white/5 pt-3">
+                        <span>Depth: 1 - 100m</span>
+                        <span class="text-neon-cyan hover:underline">Read Spec Sheet &rarr;</span>
+                    </div>
+                    <!-- Hidden Detail Container -->
+                    <div id="apex-detail" class="hidden mt-4 pt-4 border-t border-white/10 text-xs text-slate-400 space-y-1">
+                        <p><strong>Common Specimen:</strong> Blacktip Shark, Zebra Shark</p>
+                        <p><strong>Dietary Habits:</strong> Teleost fish, Cephalopods</p>
+                        <p><strong>Behavior pattern:</strong> Nocturnal hunters</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="fish-interactive-card glass-panel rounded-2xl p-6 cursor-pointer hover:border-neon-cyan/50 smooth-transition group" onclick="toggleDetails('freshwater-detail')">
+                    <div class="h-40 rounded-xl overflow-hidden mb-4 relative bg-deep-950 border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=400&q=80" alt="Freshwater Discus" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                        <div class="absolute top-2 right-2 bg-green-500/20 text-green-300 border border-green-500/30 text-[10px] px-2 py-0.5 rounded font-space uppercase">Freshwater</div>
+                    </div>
+                    <h3 class="font-space text-xl font-bold text-neon-cyan mb-2">Exotic Riverscapes</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-4">Stunning wild Discus fish and glowing tetras from Amazonian rainforest biomes.</p>
+                    <div class="flex items-center justify-between text-xs text-slate-400 border-t border-white/5 pt-3">
+                        <span>Depth: 1 - 10m</span>
+                        <span class="text-neon-cyan hover:underline">Read Spec Sheet &rarr;</span>
+                    </div>
+                    <!-- Hidden Detail Container -->
+                    <div id="freshwater-detail" class="hidden mt-4 pt-4 border-t border-white/10 text-xs text-slate-400 space-y-1">
+                        <p><strong>Common Specimen:</strong> Blue Heckel Discus, Angel Discus</p>
+                        <p><strong>Dietary Habits:</strong> Omnivorous micro-feeds</p>
+                        <p><strong>Eco Value:</strong> River Bioindicator</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Virtual Tank Simulator -->
+        <section id="simulation" class="scroll-mt-28">
+            <div class="glass-panel rounded-3xl p-6 md:p-10 border border-neon-cyan/20">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-4 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-xs font-semibold font-space">
+                            interactive simulation
+                        </div>
+                        <h2 class="font-space text-3xl md:text-4xl font-bold leading-tight">
+                            Build Your <span class="text-neon-cyan neon-text-glow">Virtual Tank</span>
+                        </h2>
+                        <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                            Interact directly with virtual marine life. Spawn glowing neon fish and drop organic feed to watch their dynamic AI pathing. Click inside the viewport to guide them.
+                        </p>
+                        <!-- Controls for Tank -->
+                        <div class="space-y-4 pt-4">
+                            <div>
+                                <label class="block text-xs font-space uppercase tracking-widest text-slate-400 mb-2">Spawn Species</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="spawnFish('cyan')" class="bg-cyan-950 border border-cyan-400 text-cyan-300 py-2 rounded-lg text-xs font-bold hover:bg-cyan-400 hover:text-black smooth-transition">Neon Tetras</button>
+                                    <button onclick="spawnFish('pink')" class="bg-pink-950 border border-pink-400 text-pink-300 py-2 rounded-lg text-xs font-bold hover:bg-pink-400 hover:text-black smooth-transition">Discus</button>
+                                    <button onclick="spawnFish('yellow')" class="bg-yellow-950 border border-yellow-400 text-yellow-300 py-2 rounded-lg text-xs font-bold hover:bg-yellow-400 hover:text-black smooth-transition">Tang Fish</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <button onclick="feedFish()" class="flex-1 bg-neon-cyan text-deep-950 py-3 rounded-xl font-space font-bold hover:shadow-[0_0_15px_rgba(0,243,255,0.6)] smooth-transition text-sm">
+                                    Drop Food 🍤
+                                </button>
+                                <button onclick="clearTank()" class="border border-white/10 hover:border-red-500 text-slate-400 hover:text-red-400 px-4 py-3 rounded-xl smooth-transition text-sm">
+                                    Clear Tank
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tank Canvas Container -->
+                    <div class="lg:col-span-8">
+                        <div class="relative rounded-2xl overflow-hidden border border-neon-cyan/30 shadow-[0_0_30px_rgba(0,243,255,0.15)] bg-deep-950/80 h-96 w-full">
+                            <canvas id="virtualTank" class="absolute top-0 left-0 w-full h-full cursor-pointer"></canvas>
+                            <div class="absolute bottom-4 left-4 bg-deep-900/80 px-3 py-1.5 rounded-lg border border-white/5 pointer-events-none text-xs text-slate-400 font-mono">
+                                Fish: <span id="fishCount" class="text-neon-cyan">0</span> | Feed: <span id="feedCount" class="text-neon-cyan">0</span>
+                            </div>
+                            <div class="absolute top-4 right-4 text-[10px] bg-neon-cyan/20 text-neon-cyan border border-neon-cyan/30 px-2 py-1 rounded font-space uppercase animate-pulse pointer-events-none">
+                                Real-Time Physics
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Aquarium Image Gallery -->
+        <section id="gallery" class="scroll-mt-28">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-space text-4xl md:text-5xl font-bold text-white mb-4">
+                    Stunning <span class="text-neon-cyan neon-text-glow">Underwater Galleries</span>
+                </h2>
+                <p class="text-slate-400">Sneak peak into our monumental walkthrough acrylic tunnels, glowing caverns, and sensory coral reefs.</p>
+            </div>
+
+            <!-- Filtering Tabs -->
+            <div class="flex justify-center gap-3 mb-10 overflow-x-auto pb-2">
+                <button onclick="filterGallery('all')" class="gallery-tab-btn active bg-neon-cyan text-deep-950 border border-neon-cyan px-5 py-2 rounded-full font-space text-xs font-bold smooth-transition">All Zones</button>
+                <button onclick="filterGallery('tunnel')" class="gallery-tab-btn border border-white/10 hover:border-neon-cyan text-slate-400 hover:text-white px-5 py-2 rounded-full font-space text-xs font-bold smooth-transition">Mega Tunnel</button>
+                <button onclick="filterGallery('caverns')" class="gallery-tab-btn border border-white/10 hover:border-neon-cyan text-slate-400 hover:text-white px-5 py-2 rounded-full font-space text-xs font-bold smooth-transition">Glow Caverns</button>
+                <button onclick="filterGallery('reef')" class="gallery-tab-btn border border-white/10 hover:border-neon-cyan text-slate-400 hover:text-white px-5 py-2 rounded-full font-space text-xs font-bold smooth-transition">Coral Reef</button>
+            </div>
+
+            <!-- Grid Items -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+                <!-- Item 1 -->
+                <div class="gallery-card relative group rounded-2xl overflow-hidden border border-white/10 aspect-video cursor-pointer" data-zone="tunnel" onclick="openLightbox('https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&w=800&q=80', 'The Mega Ocean Walkthrough Tunnel')">
+                    <img src="https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&w=800&q=80" alt="Ocean Tunnel" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-5">
+                        <span class="text-neon-cyan text-xs font-space uppercase mb-1">Mega Tunnel</span>
+                        <h4 class="font-space font-bold text-lg text-white">The 360-Degree Deep-Sea Pass</h4>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="gallery-card relative group rounded-2xl overflow-hidden border border-white/10 aspect-video cursor-pointer" data-zone="caverns" onclick="openLightbox('https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80', 'Neon Moon Jellies Canopy')">
+                    <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80" alt="Deep Glow Caverns" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-5">
+                        <span class="text-purple-400 text-xs font-space uppercase mb-1">Glow Caverns</span>
+                        <h4 class="font-space font-bold text-lg text-white">Bioluminescent Jellyfish Canopies</h4>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="gallery-card relative group rounded-2xl overflow-hidden border border-white/10 aspect-video cursor-pointer" data-zone="reef" onclick="openLightbox('https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=800&q=80', 'Great Living Shallow Coral Matrix')">
+                    <img src="https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=800&q=80" alt="Coral Reef" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-5">
+                        <span class="text-green-400 text-xs font-space uppercase mb-1">Coral Reef</span>
+                        <h4 class="font-space font-bold text-lg text-white">Great Living Shallow Coral Matrix</h4>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="gallery-card relative group rounded-2xl overflow-hidden border border-white/10 aspect-video cursor-pointer" data-zone="tunnel" onclick="openLightbox('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80', 'Sunset Tropical Shallows Pool')">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Shallows" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-5">
+                        <span class="text-neon-cyan text-xs font-space uppercase mb-1">Mega Tunnel</span>
+                        <h4 class="font-space font-bold text-lg text-white">The Sandy Shorelines & Rays Area</h4>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="gallery-card relative group rounded-2xl overflow-hidden border border-white/10 aspect-video cursor-pointer" data-zone="caverns" onclick="openLightbox('https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=800&q=80', 'Subterranean Deep-sea Kelp Spires')">
+                    <img src="https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=800&q=80" alt="Subterranean Kelp" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-5">
+                        <span class="text-purple-400 text-xs font-space uppercase mb-1">Glow Caverns</span>
+                        <h4 class="font-space font-bold text-lg text-white">Subterranean Giant Kelp Forest</h4>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="gallery-card relative group rounded-2xl overflow-hidden border border-white/10 aspect-video cursor-pointer" data-zone="reef" onclick="openLightbox('https://images.unsplash.com/photo-1524522173746-f628baad3644?auto=format&fit=crop&w=800&q=80', 'Soft Bioluminescent Polyps Exhibit')">
+                    <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?auto=format&fit=crop&w=800&q=80" alt="Anemone Garden" class="w-full h-full object-cover group-hover:scale-105 smooth-transition opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-5">
+                        <span class="text-green-400 text-xs font-space uppercase mb-1">Coral Reef</span>
+                        <h4 class="font-space font-bold text-lg text-white">The Delicate Soft Polyp Nurseries</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Dynamic Ticket Booking Calculator -->
+        <section id="tickets" class="scroll-mt-28">
+            <div class="glass-panel rounded-3xl p-6 md:p-12 border border-neon-cyan/20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="text-neon-cyan font-space text-sm font-semibold uppercase tracking-widest">Premium Adventure Passes</span>
+                        <h2 class="font-space text-4xl md:text-5xl font-bold leading-tight">
+                            Reserve Your <span class="text-neon-cyan neon-text-glow">Access Pass</span>
+                        </h2>
+                        <p class="text-slate-300">
+                            Book online today to bypass the manual queues, secure entry to our Bioluminescent Night Walk, and get complimentary virtual reality ocean headsets upon arrival.
+                        </p>
+                        <div class="space-y-4 border-t border-white/10 pt-6">
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center text-xs text-neon-cyan font-bold font-space">✓</span>
+                                <p class="text-sm text-slate-300">Instant barcode delivered straight to your mobile wallet.</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="w-6 h-6 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center text-xs text-neon-cyan font-bold font-space">✓</span>
+                                <p class="text-sm text-slate-300">Flexible 30-day rescheduling window available free of charge.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Panel -->
+                    <div class="bg-deep-900/90 rounded-2xl p-6 border border-white/5 space-y-6">
+                        <h3 class="font-space text-lg font-bold text-white border-b border-white/10 pb-4">Live Fare Configurator</h3>
+                        
+                        <!-- Adult Ticket -->
+                        <div class="flex justify-between items-center bg-deep-950/60 p-4 rounded-xl border border-white/5">
+                            <div>
+                                <h4 class="font-semibold text-white">Standard Adult Pass</h4>
+                                <p class="text-xs text-slate-400">Ages 13 and up</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="updateTicket('adult', -1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-neon-cyan/20 border border-white/10 hover:border-neon-cyan flex items-center justify-center text-white text-lg smooth-transition font-bold">-</button>
+                                <span id="adultQty" class="font-space font-bold text-lg text-neon-cyan w-6 text-center">1</span>
+                                <button onclick="updateTicket('adult', 1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-neon-cyan/20 border border-white/10 hover:border-neon-cyan flex items-center justify-center text-white text-lg smooth-transition font-bold">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Child Ticket -->
+                        <div class="flex justify-between items-center bg-deep-950/60 p-4 rounded-xl border border-white/5">
+                            <div>
+                                <h4 class="font-semibold text-white">Junior Explorer Pass</h4>
+                                <p class="text-xs text-slate-400">Ages 3 to 12</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="updateTicket('child', -1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-neon-cyan/20 border border-white/10 hover:border-neon-cyan flex items-center justify-center text-white text-lg smooth-transition font-bold">-</button>
+                                <span id="childQty" class="font-space font-bold text-lg text-neon-cyan w-6 text-center">0</span>
+                                <button onclick="updateTicket('child', 1)" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-neon-cyan/20 border border-white/10 hover:border-neon-cyan flex items-center justify-center text-white text-lg smooth-transition font-bold">+</button>
+                            </div>
+                        </div>
+
+                        <!-- VIP Pass Toggle -->
+                        <div class="flex justify-between items-center bg-deep-950/60 p-4 rounded-xl border border-white/5">
+                            <div>
+                                <h4 class="font-semibold text-white">Add Behind-The-Scenes Access</h4>
+                                <p class="text-xs text-slate-400">Includes guided coral laboratory tours</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="vipToggle" class="sr-only peer" onchange="calculateTotal()">
+                                <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-neon-cyan"></div>
+                            </label>
+                        </div>
+
+                        <!-- Order Summary Box -->
+                        <div class="border-t border-white/10 pt-4 space-y-2">
+                            <div class="flex justify-between text-xs text-slate-400">
+                                <span>Core Passes Subtotal</span>
+                                <span id="subtotalPrice">$28.00</span>
+                            </div>
+                            <div class="flex justify-between text-xs text-slate-400">
+                                <span>Interactive Add-ons</span>
+                                <span id="addonPrice">$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-bold text-white pt-2 border-t border-dashed border-white/10">
+                                <span class="font-space">Estimated Total</span>
+                                <span id="totalPrice" class="text-neon-cyan neon-text-glow font-space">$28.00</span>
+                            </div>
+                        </div>
+
+                        <button onclick="handleBookingCheckout()" class="w-full bg-neon-cyan text-deep-950 py-4 rounded-xl font-space font-bold hover:shadow-[0_0_20px_rgba(0,243,255,0.7)] smooth-transition text-center block">
+                            Proceed to Premium Secure Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Custom Popup Modal (Avoid alert()) -->
+    <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-all duration-300">
+        <div class="glass-panel max-w-md w-full rounded-2xl p-6 text-center border border-neon-cyan/40 shadow-2xl">
+            <div class="w-16 h-16 bg-neon-cyan/10 border border-neon-cyan/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-neon-cyan animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h3 class="font-space font-bold text-2xl text-neon-cyan neon-text-glow mb-2" id="modalTitle">Awesome!</h3>
+            <p class="text-slate-300 text-sm mb-6 leading-relaxed" id="modalText">Message goes here.</p>
+            <button onclick="closeModal()" class="w-full bg-neon-cyan text-deep-950 py-3 rounded-xl font-space font-bold smooth-transition hover:shadow-[0_0_15px_rgba(0,243,255,0.4)]">
+                Return to Surface
+            </button>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-black/95 backdrop-blur-sm hidden opacity-0 transition-all duration-300">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-4xl font-light smooth-transition">&times;</button>
+        <img id="lightboxImg" src="" alt="High Definition Zoom" class="max-h-[80vh] max-w-full rounded-xl object-contain border border-white/15 shadow-2xl mb-4">
+        <p id="lightboxCaption" class="font-space text-lg text-neon-cyan neon-text-glow"></p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 py-16 mt-32 bg-deep-950 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="space-y-4">
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="font-space font-bold text-2xl tracking-wider text-neon-cyan neon-text-glow">AQUAFIN</span>
+                </a>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Designed as a global futuristic biological exploration facility studying aquatic lifeforms and sustainable preservation structures.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-space text-sm font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li><a href="#varieties" class="hover:text-neon-cyan smooth-transition">Marine Varieties</a></li>
+                    <li><a href="#simulation" class="hover:text-neon-cyan smooth-transition">Virtual Tank Simulation</a></li>
+                    <li><a href="#gallery" class="hover:text-neon-cyan smooth-transition">Underwater Gallery</a></li>
+                    <li><a href="#tickets" class="hover:text-neon-cyan smooth-transition">Online Ticketing</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-space text-sm font-semibold text-white uppercase tracking-wider mb-4">Operating Hours</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Monday - Friday: 09:00 AM - 10:00 PM<br>
+                    Saturday - Sunday: 08:30 AM - Midnight
+                </p>
+            </div>
+            <div>
+                <h4 class="font-space text-sm font-semibold text-white uppercase tracking-wider mb-4">Contact Sanctuary</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Deep Sea Boulevard, Marina Bay, Sector 7<br>
+                    support@aquafin-sanctuary.org
+                </p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 md:px-8 border-t border-white/5 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <p>&copy; 2026 Aquafin Oceanic Protection Trust. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-neon-cyan smooth-transition">Privacy Protocol</a>
+                <a href="#" class="hover:text-neon-cyan smooth-transition">Ethical Marine Care Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JS Scripting -->
+    <script>
+        // ----------------------------------------------------
+        // SECTION: GLOBAL CONSTANTS & UTILITIES
+        // ----------------------------------------------------
+        
+        // Show/Hide custom popup modal securely
+        function showModal(title, text) {
+            const modal = document.getElementById('customModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = text;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('opacity-100');
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Toggle Details inside Variety Cards
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            if(element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+
+        // ----------------------------------------------------
+        // SECTION: LIGHTBOX GALLERY IMAGES
+        // ----------------------------------------------------
+        function openLightbox(imgSrc, caption) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            const cap = document.getElementById('lightboxCaption');
+            
+            img.src = imgSrc;
+            cap.textContent = caption;
+            
+            lightbox.classList.remove('hidden');
+            setTimeout(() => {
+                lightbox.classList.add('opacity-100');
+            }, 50);
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('opacity-100');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+            }, 300);
+        }
+
+        function filterGallery(zone) {
+            // Update active state in buttons
+            const buttons = document.querySelectorAll('.gallery-tab-btn');
+            buttons.forEach(btn => btn.classList.remove('bg-neon-cyan', 'text-deep-950'));
+            buttons.forEach(btn => btn.classList.add('border-white/10', 'text-slate-400', 'hover:text-white'));
+            
+            event.target.classList.remove('border-white/10', 'text-slate-400', 'hover:text-white');
+            event.target.classList.add('bg-neon-cyan', 'text-deep-950');
+
+            // Toggle cards based on matching tags
+            const cards = document.querySelectorAll('.gallery-card');
+            cards.forEach(card => {
+                if (zone === 'all' || card.getAttribute('data-zone') === zone) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ----------------------------------------------------
+        // SECTION: TICKET PRICING LOGIC
+        // ----------------------------------------------------
+        const prices = {
+            adult: 28.00,
+            child: 15.00,
+            vipAddon: 12.00
+        };
+
+        let tickets = {
+            adult: 1,
+            child: 0
+        };
+
+        function updateTicket(type, change) {
+            tickets[type] = Math.max(0, tickets[type] + change);
+            document.getElementById(`${type}Qty`).textContent = tickets[type];
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const coreSubtotal = (tickets.adult * prices.adult) + (tickets.child * prices.child);
+            const isVip = document.getElementById('vipToggle').checked;
+            const vipCostPerPerson = isVip ? prices.vipAddon : 0;
+            const totalPeople = tickets.adult + tickets.child;
+            const addonSubtotal = totalPeople * vipCostPerPerson;
+            const finalTotal = coreSubtotal + addonSubtotal;
+
+            document.getElementById('subtotalPrice').textContent = `$${coreSubtotal.toFixed(2)}`;
+            document.getElementById('addonPrice').textContent = `$${addonSubtotal.toFixed(2)}`;
+            document.getElementById('totalPrice').textContent = `$${finalTotal.toFixed(2)}`;
+        }
+
+        function handleBookingCheckout() {
+            const totalPeople = tickets.adult + tickets.child;
+            if(totalPeople <= 0) {
+                showModal("Reservation Failed", "Please add at least one adult or junior ticket to proceed.");
+                return;
+            }
+            showModal("Booking Successful", `Thank you! Your booking for ${totalPeople} explorer(s) has been securely reserved. We have transmitted the entry barcode to your mobile device.`);
+        }
+
+        // ----------------------------------------------------
+        // SECTION: AMBIENT CANVAS BACKGROUND (Floating Particles)
+        // ----------------------------------------------------
+        const ambientCanvas = document.getElementById('ambientCanvas');
+        const actx = ambientCanvas.getContext('2d');
+        let bubbles = [];
+
+        function resizeAmbientCanvas() {
+            ambientCanvas.width = window.innerWidth;
+            ambientCanvas.height = window.innerHeight;
+        }
+
+        class Bubble {
+            constructor() {
+                this.x = Math.random() * ambientCanvas.width;
+                this.y = ambientCanvas.height + Math.random() * 100;
+                this.size = Math.random() * 4 + 1;
+                this.speed = Math.random() * 0.5 + 0.2;
+                this.wiggle = Math.random() * 2;
+                this.wiggleSpeed = Math.random() * 0.02;
+            }
+            update() {
+                this.y -= this.speed;
+                this.x += Math.sin(this.y * this.wiggleSpeed) * 0.3;
+                if (this.y < -50) {
+                    this.y = ambientCanvas.height + 50;
+                    this.x = Math.random() * ambientCanvas.width;
+                }
+            }
+            draw() {
+                actx.beginPath();
+                actx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                actx.fillStyle = 'rgba(0, 243, 255, 0.15)';
+                actx.fill();
+            }
+        }
+
+        function initAmbient() {
+            resizeAmbientCanvas();
+            for (let i = 0; i < 40; i++) {
+                bubbles.push(new Bubble());
+            }
+        }
+
+        function animateAmbient() {
+            actx.clearRect(0, 0, ambientCanvas.width, ambientCanvas.height);
+            bubbles.forEach(b => {
+                b.update();
+                b.draw();
+            });
+            requestAnimationFrame(animateAmbient);
+        }
+
+        window.addEventListener('resize', resizeAmbientCanvas);
+
+        // ----------------------------------------------------
+        // SECTION: VIRTUAL FISH TANK INTERACTIVE SIMULATOR (Canvas)
+        // ----------------------------------------------------
+        const tankCanvas = document.getElementById('virtualTank');
+        const tctx = tankCanvas.getContext('2d');
+        let simulatedFish = [];
+        let organicFeed = [];
+
+        function resizeTankCanvas() {
+            const container = tankCanvas.parentElement;
+            tankCanvas.width = container.clientWidth;
+            tankCanvas.height = container.clientHeight;
+        }
+
+        class SimulatedFish {
+            constructor(x, y, colorCode) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.color = colorCode;
+                this.length = Math.random() * 12 + 16;
+                this.targetAngle = Math.random() * Math.PI * 2;
+                this.angle = 0;
+            }
+
+            update() {
+                // AI behavior: Look for nearest floating food
+                let target = null;
+                let minDist = 300;
+                
+                organicFeed.forEach(food => {
+                    const d = Math.hypot(food.x - this.x, food.y - this.y);
+                    if (d < minDist) {
+                        minDist = d;
+                        target = food;
+                    }
+                });
+
+                if (target) {
+                    // Turn towards food
+                    const angleToFood = Math.atan2(target.y - this.y, target.x - this.x);
+                    this.vx += Math.cos(angleToFood) * 0.15;
+                    this.vy += Math.sin(angleToFood) * 0.15;
+                    
+                    // If close to food, eat it
+                    if (minDist < 12) {
+                        const index = organicFeed.indexOf(target);
+                        if (index > -1) {
+                            organicFeed.splice(index, 1);
+                            // Grow slightly
+                            this.length = Math.min(this.length + 0.8, 35);
+                        }
+                    }
+                } else {
+                    // Swim randomly if no food is present
+                    if (Math.random() < 0.02) {
+                        this.targetAngle = Math.random() * Math.PI * 2;
+                        this.vx += Math.cos(this.targetAngle) * 0.5;
+                        this.vy += Math.sin(this.targetAngle) * 0.25;
+                    }
+                }
+
+                // Drag / Friction
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+
+                // Max speed safety clamp
+                const speed = Math.hypot(this.vx, this.vy);
+                const maxSpeed = 3.5;
+                if (speed > maxSpeed) {
+                    this.vx = (this.vx / speed) * maxSpeed;
+                    this.vy = (this.vy / speed) * maxSpeed;
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Boundaries bouncing
+                if (this.x < 15) { this.x = 15; this.vx *= -1; }
+                if (this.x > tankCanvas.width - 15) { this.x = tankCanvas.width - 15; this.vx *= -1; }
+                if (this.y < 15) { this.y = 15; this.vy *= -1; }
+                if (this.y > tankCanvas.height - 15) { this.y = tankCanvas.height - 15; this.vy *= -1; }
+
+                this.angle = Math.atan2(this.vy, this.vx);
+            }
+
+            draw() {
+                tctx.save();
+                tctx.translate(this.x, this.y);
+                tctx.rotate(this.angle);
+
+                // Body color configuration
+                let bodyColor = 'rgba(0, 243, 255, 0.85)';
+                let tailColor = 'rgba(0, 243, 255, 0.4)';
+                if (this.color === 'pink') {
+                    bodyColor = 'rgba(236, 72, 153, 0.85)';
+                    tailColor = 'rgba(236, 72, 153, 0.4)';
+                } else if (this.color === 'yellow') {
+                    bodyColor = 'rgba(234, 179, 8, 0.85)';
+                    tailColor = 'rgba(234, 179, 8, 0.4)';
+                }
+
+                // Draw fish body (glowing sleek marquise)
+                tctx.beginPath();
+                tctx.ellipse(0, 0, this.length, this.length / 2.3, 0, 0, Math.PI * 2);
+                tctx.fillStyle = bodyColor;
+                tctx.shadowBlur = 10;
+                tctx.shadowColor = bodyColor;
+                tctx.fill();
+
+                // Draw moving tail
+                tctx.shadowBlur = 0;
+                tctx.beginPath();
+                const tailSwing = Math.sin(Date.now() * 0.01 + this.x) * 4;
+                tctx.moveTo(-this.length, 0);
+                tctx.lineTo(-this.length - 12, -8 + tailSwing);
+                tctx.lineTo(-this.length - 8, tailSwing);
+                tctx.lineTo(-this.length - 12, 8 + tailSwing);
+                tctx.closePath();
+                tctx.fillStyle = tailColor;
+                tctx.fill();
+
+                tctx.restore();
+            }
+        }
+
+        class OrganicFeed {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.speed = Math.random() * 0.5 + 0.4;
+            }
+            update() {
+                this.y += this.speed;
+            }
+            draw() {
+                tctx.beginPath();
+                tctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                tctx.fillStyle = '#ffaa44';
+                tctx.shadowBlur = 4;
+                tctx.shadowColor = '#ffaa44';
+                tctx.fill();
+                tctx.shadowBlur = 0;
+            }
+        }
+
+        function spawnFish(color) {
+            const x = Math.random() * (tankCanvas.width - 60) + 30;
+            const y = Math.random() * (tankCanvas.height - 60) + 30;
+            simulatedFish.push(new SimulatedFish(x, y, color));
+            updateMetrics();
+        }
+
+        function feedFish() {
+            // Drop several floating feed points
+            for (let i = 0; i < 5; i++) {
+                const rx = Math.random() * (tankCanvas.width - 100) + 50;
+                organicFeed.push(new OrganicFeed(rx, Math.random() * 20));
+            }
+            updateMetrics();
+        }
+
+        function clearTank() {
+            simulatedFish = [];
+            organicFeed = [];
+            updateMetrics();
+        }
+
+        function updateMetrics() {
+            document.getElementById('fishCount').textContent = simulatedFish.length;
+            document.getElementById('feedCount').textContent = organicFeed.length;
+        }
+
+        // Tap/click on container generates feed or guides nearby fish
+        tankCanvas.addEventListener('mousedown', (event) => {
+            const rect = tankCanvas.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const clickY = event.clientY - rect.top;
+            
+            // Spawn single organic food pellet
+            organicFeed.push(new OrganicFeed(clickX, clickY));
+            updateMetrics();
+        });
+
+        function animateTank() {
+            tctx.clearRect(0, 0, tankCanvas.width, tankCanvas.height);
+
+            // Update & Render food
+            organicFeed = organicFeed.filter(food => food.y < tankCanvas.height);
+            organicFeed.forEach(food => {
+                food.update();
+                food.draw();
+            });
+
+            // Update & Render fish
+            simulatedFish.forEach(fish => {
+                fish.update();
+                fish.draw();
+            });
+
+            updateMetrics();
+            requestAnimationFrame(animateTank);
+        }
+
+        // Initial setup for Simulation & Ambient Backgrounds
+        window.onload = function() {
+            initAmbient();
+            animateAmbient();
+
+            resizeTankCanvas();
+            // Start tank with few starter fish
+            spawnFish('cyan');
+            spawnFish('cyan');
+            spawnFish('pink');
+            spawnFish('yellow');
+            animateTank();
+        };
+
+        window.addEventListener('resize', () => {
+            resizeTankCanvas();
+        });
+    </script>
+</body>
+</html>
